@@ -6,7 +6,7 @@ signal action_started
 signal action_finished
 export (String) var action = 'LEFT'
 
-export (String, 'KEY_A', 'KEY_W', 'KEY_S', 'KEY_D') var preffered_command = 'KEY_A'
+export (String, 'KEY_A', 'KEY_W', 'KEY_S', 'KEY_D', 'BUTTON_LEFT', 'BUTTON_RIGHT') var preffered_command = 'KEY_A'
 
 var command: Command setget set_command
 

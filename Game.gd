@@ -7,6 +7,8 @@ func _ready():
 	$Slots/RightSlot.set_command($Commands/Command_Key_D)
 	$Slots/UpSlot.set_command($Commands/Command_Key_W)
 	$Slots/DownSlot.set_command($Commands/Command_Key_S)
+	$Slots/FireSlot.set_command($Commands/Command_Click_Left)
+	$Slots/DragSlot.set_command($Commands/Command_Click_Right)
 	
 	for slot in $Slots.get_children():
 		slot.connect('action_started', self, 'handle_action', [true])
