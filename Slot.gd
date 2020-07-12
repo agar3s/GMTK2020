@@ -15,6 +15,7 @@ var command: Command setget set_command
 func _ready():
 	connect('area_exited', self, 'check_decoupled')
 	connect('area_entered', self, 'check_coupled')
+	add_to_group('slot')
 
 func start_action():
 	emit_signal('action_started', action)

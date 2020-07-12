@@ -5,6 +5,7 @@ const flare = preload("res://Flare.tscn")
 
 func _ready():
 	create_flare()
+	add_to_group('collidable')
 	$VisibilityNotifier2D.connect("screen_exited", self, "queue_free")
 
 

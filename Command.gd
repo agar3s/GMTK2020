@@ -24,7 +24,7 @@ var dragged = false
 var drag_offset = 0
 var coupled_position
 
-
+var max_speed = 300
 var speed: Vector2 = Vector2(0.0, 0.0)
 var target_speed: Vector2 = Vector2(0.0, 0.0)
 var colliding_object = null
@@ -41,6 +41,7 @@ func _ready():
 	connect('area_entered', self, 'on_collide')
 	connect('area_exited', self, 'on_collides_end')
 	add_to_group('command')
+	add_to_group('collidable')
 
 
 func _input(event):
@@ -91,6 +92,8 @@ func _process(_delta):
 func _physics_process(_delta):
 	if colliding_object:
 		speed = target_speed
+		if speed.length()>max_speed:
+			speed = speed.normalized()*max_speed
 
 func set_coupled(_coupled):
 	coupled = _coupled
@@ -100,17 +103,28 @@ func set_coupled(_coupled):
 			emit_signal('command_released')
 		speed.x = randf() - 0.5
 		speed.y = randf() - 0.5
-		speed = speed.normalized()*150
+		speed = speed.normalized()*rand_range(10, max_speed)
 	else:
 		speed = Vector2(0.0, 0.0)
 
 
 func on_collide(area2D):
+	var to_bounce = false
 	if coupled: return
-	target_speed = speed.bounce(position.direction_to(area2D.position))
+	
+	if area2D.is_in_group('slot') and area2D.command:
+		to_bounce = true
+	if !to_bounce and !area2D.is_in_group('collidable'): return
+	
 	colliding_object = area2D
-	if !area2D.get('speed'): return
-	target_speed = area2D.speed
+	if area2D.is_in_group('collidable'):
+		target_speed = area2D.speed
+		to_bounce = target_speed.length() == 0
+	
+	if to_bounce:
+		target_speed = speed.bounce(position.direction_to(area2D.position))
+		return
+	
 	if target_speed.x == 0: target_speed.x = speed.x
 	if target_speed.y == 0: target_speed.y = speed.y
 	

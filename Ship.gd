@@ -17,6 +17,7 @@ var speed: Vector2 = Vector2(0.0, 0.0)
 
 func _ready():
 	$Timer.connect('timeout', self, 'shoot')
+	add_to_group('collidable')
 
 func shoot():
 	create_laser($Cannons/Center.global_position)
