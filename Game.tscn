@@ -11,59 +11,59 @@ script = ExtResource( 3 )
 [node name="Slots" type="Node2D" parent="."]
 
 [node name="LeftSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 28.3162, 341.21 )
+position = Vector2( 33, 325 )
 
 [node name="RightSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 112.793, 343.098 )
+position = Vector2( 117, 325 )
 action = "RIGHT"
 preffered_command = "KEY_D"
 
 [node name="UpSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 69.8466, 296.376 )
+position = Vector2( 75, 282.967 )
 action = "UP"
 preffered_command = "KEY_W"
 
 [node name="DownSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 70.3185, 342.626 )
+position = Vector2( 75, 325 )
 action = "DOWN"
 preffered_command = "KEY_D"
 
 [node name="FireSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 274.195, 336.491 )
+position = Vector2( 308, 325 )
 action = "FIRE"
 preffered_command = "BUTTON_LEFT"
 
 [node name="DragSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 347.345, 335.547 )
+position = Vector2( 352, 325 )
 action = "DRAG"
 preffered_command = "BUTTON_RIGHT"
 
 [node name="Commands" type="Node2D" parent="."]
 
 [node name="Command_Key_A" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 28.3162, 341.21 )
+position = Vector2( 33, 325 )
 
 [node name="Command_Key_W" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 69.8466, 296.376 )
+position = Vector2( 75, 282.967 )
 command_code = "KEY_W"
 
 [node name="Command_Key_S" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 70.3185, 342.626 )
+position = Vector2( 75, 325 )
 command_code = "KEY_S"
 
 [node name="Command_Key_D" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 112.793, 343.098 )
+position = Vector2( 117, 325 )
 command_code = "KEY_D"
 
 [node name="Command_Click_Left" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 274.195, 336.491 )
+position = Vector2( 308, 325 )
 command_code = "BUTTON_LEFT"
 
 [node name="Command_Click_Right" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 347.345, 335.547 )
+position = Vector2( 352, 325 )
 command_code = "BUTTON_RIGHT"
 
 [node name="Ship" parent="." instance=ExtResource( 4 )]
-position = Vector2( 190.698, 355.26 )
+position = Vector2( 196, 322 )
 
 [node name="Borders" type="Node2D" parent="."]
