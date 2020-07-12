@@ -74,6 +74,7 @@ func set_speed():
 func _process(delta):
 	position.x += speed.x*delta
 	position.y += speed.y*delta
+
 	
 	position.x = clamp(position.x, 0 + 16, get_viewport_rect().size.x - 16)
 	position.y = clamp(position.y, 0 + 100, get_viewport_rect().size.y - 32)

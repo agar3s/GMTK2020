@@ -21,4 +21,13 @@ func handle_action(action, status):
 		'DOWN': $Ship.down = status
 		'FIRE': $Ship.fire = status
 		'DRAG': drag(status)
+		#'DRAG': decouple()
 
+func decouple():
+	var array = range(0, $Slots.get_child_count())
+	array.shuffle()
+	for index_slot in array:
+		var slot = $Slots.get_child(index_slot)
+		if slot.command:
+			slot.eject_command()
+			break

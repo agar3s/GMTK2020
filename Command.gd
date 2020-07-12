@@ -152,6 +152,6 @@ func on_collides_end(area2D):
 		colliding_object = null
 		target_speed = Vector2(0.0, 0.0)
 	
-	
+
 	
 	
