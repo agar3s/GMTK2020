@@ -17,6 +17,13 @@ func _ready():
 
 func handle_action(action, status):
 	print('action ', action, ' ', status)
+	match action:
+		'LEFT': $Ship.left = status
+		'RIGHT': $Ship.right = status
+		'UP': $Ship.up = status
+		'DOWN': $Ship.down = status
+		'FIRE': $Ship.fire = status
+		'DRAG': print('start drag?')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
