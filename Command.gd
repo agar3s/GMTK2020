@@ -69,16 +69,17 @@ func set_draggable(_draggable):
 	draggable = _draggable
 
 func drag(drag_active):
-	if dragged and !drag_active and coupled:
-		position = coupled_position
+	if dragged and !drag_active:
+		if coupled:
+			position = coupled_position
+		else:
+			speed = direction*10
+			if speed.length() > max_speed:
+				speed = speed.normalized()*max_speed
+	
 	dragged = drag_active and draggable
 	if drag_active:
 		drag_offset = position - get_global_mouse_position()
-	
-	if !dragged:
-		speed = direction*10
-		if speed.length() > max_speed:
-			speed = speed.normalized()*max_speed
 	
 	return dragged
 
@@ -109,6 +110,7 @@ func set_direction(_direction):
 func set_coupled(_coupled):
 	coupled = _coupled
 	if !coupled:
+		$AnimationPlayer.play("decoupled")
 		if active:
 			active = false
 			emit_signal('command_released')
@@ -121,6 +123,7 @@ func set_coupled(_coupled):
 			speed = speed.normalized()*max_speed
 	else:
 		speed = Vector2(0.0, 0.0)
+		$AnimationPlayer.play("coupled")
 
 
 func on_collide(area2D):
