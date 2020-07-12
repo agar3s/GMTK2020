@@ -19,7 +19,7 @@ action = "RIGHT"
 preffered_command = "KEY_D"
 
 [node name="UpSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 70.3185, 300.623 )
+position = Vector2( 69.8466, 296.376 )
 action = "UP"
 preffered_command = "KEY_W"
 
@@ -41,26 +41,26 @@ preffered_command = "BUTTON_RIGHT"
 [node name="Commands" type="Node2D" parent="."]
 
 [node name="Command_Key_A" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 29.2601, 340.738 )
+position = Vector2( 28.3162, 341.21 )
 
 [node name="Command_Key_W" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 70.3186, 303.927 )
+position = Vector2( 69.8466, 296.376 )
 command_code = "KEY_W"
 
 [node name="Command_Key_S" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 71.2624, 343.57 )
+position = Vector2( 70.3185, 342.626 )
 command_code = "KEY_S"
 
 [node name="Command_Key_D" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 111.849, 343.098 )
+position = Vector2( 112.793, 343.098 )
 command_code = "KEY_D"
 
 [node name="Command_Click_Left" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 275.611, 336.963 )
+position = Vector2( 274.195, 336.491 )
 command_code = "BUTTON_LEFT"
 
 [node name="Command_Click_Right" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 347.345, 334.131 )
+position = Vector2( 347.345, 335.547 )
 command_code = "BUTTON_RIGHT"
 
 [node name="Ship" parent="." instance=ExtResource( 4 )]

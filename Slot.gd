@@ -13,7 +13,7 @@ var command: Command setget set_command
 
 
 func _ready():
-	pass # Replace with function body.
+	connect('area_exited', self, 'check_decoupled')
 
 func start_action():
 	emit_signal('action_started', action)
@@ -23,13 +23,20 @@ func finish_action():
 
 func set_command(_command):
 	if command:
+		command.coupled = false
 		command.disconnect('command_activated', self, 'start_action')
 		command.disconnect('command_released', self, 'finish_action')
 	if _command:
 		command = _command
+		command.coupled = true
 		command.connect('command_activated', self, 'start_action')
 		command.connect('command_released', self, 'finish_action')
+		command.position = position
 
 func set_action(_action):
 	action = _action
 	$Label.text = action
+
+func check_decoupled(area2d):
+	if area2d == command:
+		set_command(null)

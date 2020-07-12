@@ -22,6 +22,9 @@ var active = false
 var draggable = false setget set_draggable
 var dragged = false
 var drag_offset = 0
+var coupled_position
+
+var coupled = false setget set_coupled
 
 var key = COMMANDS[command_code][0]
 var command_string = COMMANDS[command_code][1]
@@ -55,10 +58,17 @@ func set_draggable(_draggable):
 	draggable = _draggable
 
 func drag(drag_active):
+		
 	dragged = drag_active and draggable
-	drag_offset = position - get_global_mouse_position()
+	if drag_active:
+		drag_offset = position - get_global_mouse_position()
+	
 	return dragged
 
 func _process(_delta):
 	if dragged:
 		position = get_global_mouse_position() + drag_offset
+
+
+func set_coupled(_coupled):
+	coupled = _coupled
