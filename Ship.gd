@@ -8,6 +8,7 @@ var right = false setget set_right
 var down = false setget set_down
 var up = false setget set_up
 
+
 var move_x = 0
 var move_y = 0
 
@@ -62,8 +63,9 @@ func set_up(on):
 
 
 func _process(delta):
-	position.x += speed * delta * move_x
-	position.x = clamp(position.x, 0 + 16, get_viewport_rect().size.x - 16)
+	var delta_move = Vector2(move_x, move_y).normalized()*speed*delta
+	position.x += delta_move.x
+	position.y += delta_move.y
 	
-	position.y += speed * delta * move_y
+	position.x = clamp(position.x, 0 + 16, get_viewport_rect().size.x - 16)
 	position.y = clamp(position.y, 0 + 100, get_viewport_rect().size.x - 50)
