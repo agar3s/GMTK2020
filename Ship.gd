@@ -42,34 +42,18 @@ func set_fire(on):
 
 func set_left(on):
 	left = on
-	if left:
-		move_x -= 1
-	else:
-		move_x += 1
 	set_speed()
 		
 func set_right(on):
-	right = on 
-	if right:
-		move_x += 1
-	else:
-		move_x -= 1
+	right = on
 	set_speed()
 
 func set_down(on):
 	down = on
-	if down:
-		move_y += 1
-	else:
-		move_y -= 1
 	set_speed()
 
 func set_up(on):
 	up = on
-	if up:
-		move_y -= 1
-	else:
-		move_y += 1
 	set_speed()
 
 func hit(_damage):
@@ -81,8 +65,18 @@ func hit(_damage):
 
 
 func set_speed():
-	move_x = clamp(move_x, -1.0, 1.0)
-	move_y = clamp(move_y, -1.0, 1.0)
+	if left and !right:
+		move_x = -1
+	if !left and right:
+		move_x = 1
+	if left == right:
+		move_x = 0
+	if up and !down:
+		move_y = -1
+	if !up and down:
+		move_y = 1
+	if up == down:
+		move_y = 0
 	speed = Vector2(move_x, move_y).normalized()*speed_max
 
 

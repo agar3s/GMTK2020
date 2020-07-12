@@ -23,6 +23,7 @@ func _process(delta):
 	if position.y - 16 > get_viewport_rect().size.y:
 		queue_free()
 
+
 func set_armor(value):
 	armor = value
 	if armor <= 0:
@@ -30,6 +31,7 @@ func set_armor(value):
 		var Score = get_tree().root.get_node("Game/HUD/Score")
 		Score.score += 5
 		queue_free()
+
 
 func explode():
 	var explosion = explosion_scene.instance()
@@ -42,3 +44,5 @@ func _on_hit(other):
 		other.hit(damage)
 		explode()
 		queue_free()
+
+

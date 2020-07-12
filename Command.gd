@@ -54,7 +54,6 @@ func _ready():
 	add_to_group('collidable')
 	
 
-
 func _input(event):
 	if hp <= 0: return
 	if event is InputEventKey and keyboard_type and event.scancode == key and event.pressed != active:
@@ -68,6 +67,7 @@ func _input(event):
 		if active: emit_signal('command_activated')
 		else: emit_signal('command_released')
 		set_active_feedback()
+
 
 func set_active_feedback():
 	if !active:
@@ -86,8 +86,10 @@ func set_command_code(_command_code):
 	keyboard_type = COMMANDS[command_code][2]
 	$Text.text = command_string
 
+
 func set_draggable(_draggable):
 	draggable = _draggable
+
 
 func drag(drag_active):
 	if dragged and !drag_active:
@@ -119,14 +121,17 @@ func _process(_delta):
 		elif position.y - 16 <= 0 and speed.y < 0:
 			speed.y *= -1
 
+
 func _physics_process(_delta):
 	if colliding_object:
 		speed = target_speed
 		if speed.length()>max_speed:
 			speed = speed.normalized()*max_speed
 
+
 func set_direction(_direction):
 	direction = _direction
+
 
 func set_coupled(_coupled):
 	coupled = _coupled
@@ -170,7 +175,8 @@ func on_collide(area2D):
 	
 	if target_speed.x == 0: target_speed.x = speed.x
 	if target_speed.y == 0: target_speed.y = speed.y
-	
+
+
 func on_collides_end(area2D):
 	if colliding_object and colliding_object == area2D:
 		colliding_object = null

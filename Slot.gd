@@ -27,10 +27,10 @@ func set_command(_command):
 	if command:
 		if has_node('Direction'):
 			command.direction = get_node('Direction').cast_to.normalized()*100
+		command.coupled = false
+		command.disconnect("command_hit", self, 'eject_command')
 		command.disconnect('command_activated', self, 'start_action')
 		command.disconnect('command_released', self, 'finish_action')
-		command.disconnect("command_hit", self, 'eject_command')
-		command.coupled = false
 	command = _command
 	if command:
 		command.coupled = true
@@ -58,5 +58,6 @@ func check_coupled(area2d):
 
 func eject_command():
 	#command.position += get_node('Direction').cast_to*0.5
+	finish_action()
 	set_command(null)
 

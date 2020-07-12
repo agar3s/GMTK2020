@@ -17,6 +17,7 @@ func drag(dragging):
 
 func handle_action(action, status):
 	if !has_node('Ship'): return
+	print(action, status)
 	match action:
 		'LEFT': $Ship.left = status
 		'RIGHT': $Ship.right = status

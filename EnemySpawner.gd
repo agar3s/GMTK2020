@@ -10,5 +10,5 @@ func spawn():
 	var enemy = Enemy.instance()
 
 	get_tree().root.get_node('Game').add_child(enemy)
-	#$TimerKamikaze.wait_time = rand_range(0.5, 1.25)
+	$Timer.wait_time = rand_range(0.5, 1.25)
 	
