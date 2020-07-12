@@ -14,7 +14,10 @@ func _ready():
 	for slot in $Slots.get_children():
 		slot.connect('action_started', self, 'handle_action', [true])
 		slot.connect('action_finished', self, 'handle_action', [false])
-	
+
+func drag(dragging):
+	for command in $Commands.get_children():
+		if command.drag(dragging): break
 
 func handle_action(action, status):
 	print('action ', action, ' ', status)
@@ -24,8 +27,5 @@ func handle_action(action, status):
 		'UP': $Ship.up = status
 		'DOWN': $Ship.down = status
 		'FIRE': $Ship.fire = status
-		'DRAG': print('start drag?')
+		'DRAG': drag(status)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

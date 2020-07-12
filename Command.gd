@@ -19,12 +19,17 @@ export( String,
 ) var command_code = 'KEY_A' setget set_command_code
 
 var active = false
+var draggable = false setget set_draggable
+var dragged = false
+var drag_offset = 0
+
 var key = COMMANDS[command_code][0]
 var command_string = COMMANDS[command_code][1]
 var keyboard_type = COMMANDS[command_code][2]
 
 func _ready():
-	pass
+	connect("mouse_entered", self, 'set_draggable', [true])
+	connect("mouse_exited", self, 'set_draggable', [false])
 
 
 func _input(event):
@@ -45,3 +50,15 @@ func set_command_code(_command_code):
 	command_string = COMMANDS[command_code][1]
 	keyboard_type = COMMANDS[command_code][2]
 	$Text.text = command_string
+
+func set_draggable(_draggable):
+	draggable = _draggable
+
+func drag(drag_active):
+	dragged = drag_active and draggable
+	drag_offset = position - get_global_mouse_position()
+	return dragged
+
+func _process(_delta):
+	if dragged:
+		position = get_global_mouse_position() + drag_offset
