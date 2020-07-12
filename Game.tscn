@@ -65,3 +65,5 @@ command_code = "BUTTON_RIGHT"
 
 [node name="Ship" parent="." instance=ExtResource( 4 )]
 position = Vector2( 190.698, 355.26 )
+
+[node name="Borders" type="Node2D" parent="."]

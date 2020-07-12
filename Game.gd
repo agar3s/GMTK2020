@@ -14,7 +14,6 @@ func drag(dragging):
 		if command.drag(dragging): break
 
 func handle_action(action, status):
-	print('action ', action, ' ', status)
 	match action:
 		'LEFT': $Ship.left = status
 		'RIGHT': $Ship.right = status

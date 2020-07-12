@@ -44,8 +44,5 @@ func check_decoupled(area2d):
 		set_command(null)
 
 func check_coupled(area2d):
-	print(area2d)
-	print(command)
-	print(!(area2d is Command))
 	if !(area2d is Command) or command: return
 	set_command(area2d)

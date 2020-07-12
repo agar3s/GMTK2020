@@ -1,6 +1,6 @@
 extends Area2D
 
-export var velocity = Vector2(0, -300)
+export var speed = Vector2(0, -300)
 const flare = preload("res://Flare.tscn")
 
 func _ready():
@@ -9,7 +9,7 @@ func _ready():
 
 
 func _process(delta):
-	position += velocity*delta
+	position += speed*delta
 
 
 func create_flare():

@@ -24,7 +24,10 @@ var dragged = false
 var drag_offset = 0
 var coupled_position
 
+
 var speed: Vector2 = Vector2(0.0, 0.0)
+var target_speed: Vector2 = Vector2(0.0, 0.0)
+var colliding_object = null
 
 var coupled = false setget set_coupled
 
@@ -33,8 +36,11 @@ var command_string = COMMANDS[command_code][1]
 var keyboard_type = COMMANDS[command_code][2]
 
 func _ready():
-	connect("mouse_entered", self, 'set_draggable', [true])
-	connect("mouse_exited", self, 'set_draggable', [false])
+	connect('mouse_entered', self, 'set_draggable', [true])
+	connect('mouse_exited', self, 'set_draggable', [false])
+	connect('area_entered', self, 'on_collide')
+	connect('area_exited', self, 'on_collides_end')
+	add_to_group('command')
 
 
 func _input(event):
@@ -73,11 +79,18 @@ func _process(_delta):
 		position = get_global_mouse_position() + drag_offset
 	elif !coupled:
 		position += speed*_delta
-		if position.x + 16 >= get_viewport_rect().size.x or position.x - 16 <= 0:
+		if position.x + 16 >= get_viewport_rect().size.x and speed.x > 0:
 			speed.x *= -1
-		if position.y + 16 >= get_viewport_rect().size.y or position.y - 16 <= 0:
+		elif position.x - 16 <= 0 and speed.x < 0:
+			speed.x *= -1
+		if position.y + 16 >= get_viewport_rect().size.y and speed.y > 0:
+			speed.y *= -1
+		elif position.y - 16 <= 0 and speed.y < 0:
 			speed.y *= -1
 
+func _physics_process(_delta):
+	if colliding_object:
+		speed = target_speed
 
 func set_coupled(_coupled):
 	coupled = _coupled
@@ -88,3 +101,24 @@ func set_coupled(_coupled):
 		speed.x = randf() - 0.5
 		speed.y = randf() - 0.5
 		speed = speed.normalized()*150
+	else:
+		speed = Vector2(0.0, 0.0)
+
+
+func on_collide(area2D):
+	if coupled: return
+	target_speed = speed.bounce(position.direction_to(area2D.position))
+	colliding_object = area2D
+	if !area2D.get('speed'): return
+	target_speed = area2D.speed
+	if target_speed.x == 0: target_speed.x = speed.x
+	if target_speed.y == 0: target_speed.y = speed.y
+	
+func on_collides_end(area2D):
+	if colliding_object and colliding_object == area2D:
+		colliding_object = null
+		target_speed = Vector2(0.0, 0.0)
+	
+	
+	
+	
