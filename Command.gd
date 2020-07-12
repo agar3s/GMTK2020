@@ -24,6 +24,8 @@ var dragged = false
 var drag_offset = 0
 var coupled_position
 
+var speed: Vector2 = Vector2(0.0, 0.0)
+
 var coupled = false setget set_coupled
 
 var key = COMMANDS[command_code][0]
@@ -69,7 +71,17 @@ func drag(drag_active):
 func _process(_delta):
 	if dragged:
 		position = get_global_mouse_position() + drag_offset
+	elif !coupled:
+		position += speed*_delta
+		if position.x + 16 >= get_viewport_rect().size.x or position.x - 16 <= 0:
+			speed.x *= -1
+		if position.y + 16 >= get_viewport_rect().size.y or position.y - 16 <= 0:
+			speed.y *= -1
 
 
 func set_coupled(_coupled):
 	coupled = _coupled
+	if !coupled:
+		speed.x = randf()
+		speed.y = randf()
+		speed = speed.normalized()*150
