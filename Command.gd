@@ -58,7 +58,8 @@ func set_draggable(_draggable):
 	draggable = _draggable
 
 func drag(drag_active):
-		
+	if dragged and !drag_active and coupled:
+		position = coupled_position
 	dragged = drag_active and draggable
 	if drag_active:
 		drag_offset = position - get_global_mouse_position()

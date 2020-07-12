@@ -14,6 +14,7 @@ var command: Command setget set_command
 
 func _ready():
 	connect('area_exited', self, 'check_decoupled')
+	connect('area_entered', self, 'check_coupled')
 
 func start_action():
 	emit_signal('action_started', action)
@@ -26,12 +27,13 @@ func set_command(_command):
 		command.coupled = false
 		command.disconnect('command_activated', self, 'start_action')
 		command.disconnect('command_released', self, 'finish_action')
-	if _command:
-		command = _command
+	command = _command
+	if command:
 		command.coupled = true
 		command.connect('command_activated', self, 'start_action')
 		command.connect('command_released', self, 'finish_action')
 		command.position = position
+		command.coupled_position = position
 
 func set_action(_action):
 	action = _action
@@ -40,3 +42,10 @@ func set_action(_action):
 func check_decoupled(area2d):
 	if area2d == command:
 		set_command(null)
+
+func check_coupled(area2d):
+	print(area2d)
+	print(command)
+	print(!(area2d is Command))
+	if !(area2d is Command) or command: return
+	set_command(area2d)
