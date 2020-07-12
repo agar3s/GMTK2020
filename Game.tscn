@@ -11,20 +11,26 @@ script = ExtResource( 3 )
 [node name="Commands" type="Node2D" parent="."]
 
 [node name="Command_Key_A" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 15.5739, 343.57 )
 
 [node name="Command_Key_W" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 50.9691, 304.871 )
 command_code = "KEY_W"
 
 [node name="Command_Key_S" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 51.913, 344.513 )
 command_code = "KEY_S"
 
 [node name="Command_Key_D" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 87.7802, 344.042 )
 command_code = "KEY_D"
 
 [node name="Command_Click_Left" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 270.42, 340.266 )
 command_code = "BUTTON_LEFT"
 
 [node name="Command_Click_Right" parent="Commands" instance=ExtResource( 2 )]
+position = Vector2( 334.603, 337.906 )
 command_code = "BUTTON_RIGHT"
 
 [node name="Slots" type="Node2D" parent="."]

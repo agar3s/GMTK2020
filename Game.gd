@@ -1,3 +1,4 @@
+tool
 extends Node2D
 
 const Slot = preload("res://Slot.gd")

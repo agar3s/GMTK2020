@@ -17,7 +17,6 @@ func _ready():
 	$Timer.connect('timeout', self, 'shoot')
 
 func shoot():
-	
 	create_laser($Cannons/Center.global_position)
 
 func create_laser(pos):

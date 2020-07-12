@@ -1,3 +1,4 @@
+tool
 extends Node2D
 
 signal command_activated
@@ -43,3 +44,4 @@ func set_command_code(_command_code):
 	key = COMMANDS[command_code][0]
 	command_string = COMMANDS[command_code][1]
 	keyboard_type = COMMANDS[command_code][2]
+	$Text.text = command_string
