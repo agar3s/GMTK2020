@@ -45,6 +45,9 @@ tracks/0/keys = {
 
 [node name="Command" type="Area2D"]
 script = ExtResource( 1 )
+base_color = Color( 1, 1, 1, 1 )
+active_ok_color = Color( 0.0862745, 0.576471, 0, 1 )
+active_bad_color = Color( 0.615686, 0.203922, 0, 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 0, 0, 0, 1 )
@@ -60,6 +63,7 @@ margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "A"
 align = 1
 valign = 3

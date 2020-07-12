@@ -18,6 +18,10 @@ export( String,
 	'BUTTON_LEFT', 'BUTTON_RIGHT'
 ) var command_code = 'KEY_A' setget set_command_code
 
+export (Color) var base_color
+export (Color) var active_ok_color
+export (Color) var active_bad_color
+
 var active = false
 var draggable = false setget set_draggable
 var dragged = false
@@ -51,12 +55,23 @@ func _input(event):
 		active = event.pressed
 		if active: emit_signal('command_activated')
 		else: emit_signal('command_released')
+		set_active_feedback()
 	
 	if event is InputEventMouseButton and !keyboard_type and event.button_index == key and event.pressed != active:
 		active = event.pressed
 		if active: emit_signal('command_activated')
 		else: emit_signal('command_released')
+		set_active_feedback()
 
+func set_active_feedback():
+	if !active:
+		$Text.modulate = base_color
+		return
+	if coupled:
+		$Text.modulate = active_ok_color
+	else:
+		$Text.modulate = active_bad_color
+	
 
 func set_command_code(_command_code):
 	command_code = _command_code
