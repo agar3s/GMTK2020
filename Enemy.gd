@@ -32,7 +32,7 @@ func explode():
 
 
 func _on_hit(other):
-	if other.is_in_group('ship'):
+	if other.is_in_group('ship') or other.is_in_group('command'):
 		other.hit()
 		explode()
 		queue_free()

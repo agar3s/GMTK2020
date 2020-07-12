@@ -14,7 +14,7 @@ var up = false setget set_up
 var move_x = 0
 var move_y = 0
 
-export (float) var speed_max = 150
+export (float) var speed_max = 200
 var speed: Vector2 = Vector2(0.0, 0.0)
 
 func _ready():

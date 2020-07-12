@@ -16,9 +16,11 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.35
 
 [node name="Cannons" type="Node2D" parent="."]
 
 [node name="Center" type="Position2D" parent="Cannons"]
 position = Vector2( 0, -16 )
+
+[node name="RecoverTimer" type="Timer" parent="."]

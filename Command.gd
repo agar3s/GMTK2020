@@ -41,6 +41,8 @@ var key = COMMANDS[command_code][0]
 var command_string = COMMANDS[command_code][1]
 var keyboard_type = COMMANDS[command_code][2]
 
+var hp = 100 setget set_hp
+
 func _ready():
 	connect('mouse_entered', self, 'set_draggable', [true])
 	connect('mouse_exited', self, 'set_draggable', [false])
@@ -48,9 +50,11 @@ func _ready():
 	connect('area_exited', self, 'on_collides_end')
 	add_to_group('command')
 	add_to_group('collidable')
+	
 
 
 func _input(event):
+	if hp <= 0: return
 	if event is InputEventKey and keyboard_type and event.scancode == key and event.pressed != active:
 		active = event.pressed
 		if active: emit_signal('command_activated')
@@ -169,7 +173,14 @@ func on_collides_end(area2D):
 	if colliding_object and colliding_object == area2D:
 		colliding_object = null
 		target_speed = Vector2(0.0, 0.0)
-	
 
+
+func set_hp(_hp):
+	hp = clamp(_hp, 0, 100)
+	$ProgressBar.value = hp
 	
-	
+func hit():
+	set_hp(hp - 20)
+
+func recover(value):
+	set_hp(hp + value)

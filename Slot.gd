@@ -47,6 +47,10 @@ func check_decoupled(area2d):
 		set_command(null)
 
 func check_coupled(area2d):
+	if area2d.is_in_group('enemy') and command and command.hp == 0:
+		eject_command()
+		return
+		
 	if !(area2d is Command) or command: return
 	set_command(area2d)
 
