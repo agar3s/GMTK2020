@@ -134,7 +134,7 @@ func on_collide(area2D):
 		if area2D.command:
 			to_bounce = true
 		else:
-			area2D.setCommand(self)
+			area2D.set_command(self)
 			return
 	if !to_bounce and !area2D.is_in_group('collidable'): return
 	

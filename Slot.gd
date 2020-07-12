@@ -32,9 +32,9 @@ func set_command(_command):
 		command.coupled = false
 	command = _command
 	if command:
+		command.coupled = true
 		command.connect('command_activated', self, 'start_action')
 		command.connect('command_released', self, 'finish_action')
-		command.coupled = true
 		command.position = position
 		command.coupled_position = position
 

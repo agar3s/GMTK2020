@@ -1,5 +1,7 @@
 extends Area2D
 
+signal on_hit
+
 const laser_scene = preload('res://LaserShip.tscn')
 
 var fire = false setget set_fire
@@ -18,6 +20,7 @@ var speed: Vector2 = Vector2(0.0, 0.0)
 func _ready():
 	$Timer.connect('timeout', self, 'shoot')
 	add_to_group('collidable')
+	add_to_group('ship')
 
 func shoot():
 	create_laser($Cannons/Center.global_position)
@@ -67,7 +70,13 @@ func set_up(on):
 		move_y += 1
 	set_speed()
 
+func hit():
+	emit_signal('on_hit')
+
+
 func set_speed():
+	move_x = clamp(move_x, -1.0, 1.0)
+	move_y = clamp(move_y, -1.0, 1.0)
 	speed = Vector2(move_x, move_y).normalized()*speed_max
 
 
