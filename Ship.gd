@@ -1,5 +1,7 @@
 extends Area2D
 
+const laser_scene = preload('res://LaserShip.tscn')
+
 var fire = false setget set_fire
 var left = false setget set_left
 var right = false setget set_right
@@ -12,11 +14,24 @@ var move_y = 0
 export (float) var speed = 150
 
 func _ready():
-	pass # Replace with function body.
+	$Timer.connect('timeout', self, 'shoot')
 
+func shoot():
+	
+	create_laser($Cannons/Center.global_position)
+
+func create_laser(pos):
+	var laser = laser_scene.instance()
+	laser.set_position(pos)
+	get_tree().root.add_child(laser)
 
 func set_fire(on):
 	fire = on
+	if fire:
+		shoot()
+		$Timer.start()
+	else:
+		$Timer.stop()
 
 func set_left(on):
 	left = on
