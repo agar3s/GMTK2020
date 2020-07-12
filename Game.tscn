@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Command.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
 [ext_resource path="res://Ship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Direction.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -13,30 +14,49 @@ script = ExtResource( 3 )
 [node name="LeftSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 33, 325 )
 
+[node name="Direction" parent="Slots/LeftSlot" instance=ExtResource( 5 )]
+cast_to = Vector2( -15, -50 )
+
 [node name="RightSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 117, 325 )
 action = "RIGHT"
 preffered_command = "KEY_D"
+
+[node name="Direction" parent="Slots/RightSlot" instance=ExtResource( 5 )]
+rotation = -0.261799
+cast_to = Vector2( 30, -50 )
 
 [node name="UpSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 75, 282.967 )
 action = "UP"
 preffered_command = "KEY_W"
 
+[node name="Direction" parent="Slots/UpSlot" instance=ExtResource( 5 )]
+cast_to = Vector2( 0, -50 )
+
 [node name="DownSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 75, 325 )
 action = "DOWN"
 preffered_command = "KEY_D"
+
+[node name="Direction" parent="Slots/DownSlot" instance=ExtResource( 5 )]
+rotation = -0.523598
 
 [node name="FireSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 308, 325 )
 action = "FIRE"
 preffered_command = "BUTTON_LEFT"
 
+[node name="Direction" parent="Slots/FireSlot" instance=ExtResource( 5 )]
+rotation = 0.523598
+
 [node name="DragSlot" parent="Slots" instance=ExtResource( 1 )]
 position = Vector2( 352, 325 )
 action = "DRAG"
 preffered_command = "BUTTON_RIGHT"
+
+[node name="Direction" parent="Slots/DragSlot" instance=ExtResource( 5 )]
+rotation = 2.61799
 
 [node name="Commands" type="Node2D" parent="."]
 

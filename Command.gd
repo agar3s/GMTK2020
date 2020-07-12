@@ -24,6 +24,8 @@ var dragged = false
 var drag_offset = 0
 var coupled_position
 
+var direction: Vector2 = Vector2(0.0, 0.0) setget set_direction
+var drag_force = 1.0
 var max_speed = 300
 var speed: Vector2 = Vector2(0.0, 0.0)
 var target_speed: Vector2 = Vector2(0.0, 0.0)
@@ -73,10 +75,16 @@ func drag(drag_active):
 	if drag_active:
 		drag_offset = position - get_global_mouse_position()
 	
+	if !dragged:
+		speed = direction*10
+		if speed.length() > max_speed:
+			speed = speed.normalized()*max_speed
+	
 	return dragged
 
 func _process(_delta):
 	if dragged:
+		direction = get_global_mouse_position() + drag_offset - position
 		position = get_global_mouse_position() + drag_offset
 	elif !coupled:
 		position += speed*_delta
@@ -95,15 +103,22 @@ func _physics_process(_delta):
 		if speed.length()>max_speed:
 			speed = speed.normalized()*max_speed
 
+func set_direction(_direction):
+	direction = _direction
+
 func set_coupled(_coupled):
 	coupled = _coupled
 	if !coupled:
 		if active:
 			active = false
 			emit_signal('command_released')
-		speed.x = randf() - 0.5
-		speed.y = randf() - 0.5
-		speed = speed.normalized()*rand_range(10, max_speed)
+		if direction.length():
+			speed = direction
+		else:
+			speed.x = randf() - 0.5
+			speed.y = randf() - 0.5
+		if speed.length() > max_speed:
+			speed = speed.normalized()*max_speed
 	else:
 		speed = Vector2(0.0, 0.0)
 
@@ -112,8 +127,12 @@ func on_collide(area2D):
 	var to_bounce = false
 	if coupled: return
 	
-	if area2D.is_in_group('slot') and area2D.command:
-		to_bounce = true
+	if area2D.is_in_group('slot'):
+		if area2D.command:
+			to_bounce = true
+		else:
+			area2D.setCommand(self)
+			return
 	if !to_bounce and !area2D.is_in_group('collidable'): return
 	
 	colliding_object = area2D
@@ -122,7 +141,7 @@ func on_collide(area2D):
 		to_bounce = target_speed.length() == 0
 	
 	if to_bounce:
-		target_speed = speed.bounce(position.direction_to(area2D.position))
+		target_speed = speed.bounce(position.direction_to(area2D.position.normalized()).normalized())
 		return
 	
 	if target_speed.x == 0: target_speed.x = speed.x

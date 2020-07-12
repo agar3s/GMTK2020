@@ -25,6 +25,8 @@ func finish_action():
 
 func set_command(_command):
 	if command:
+		if has_node('Direction'):
+			command.direction = get_node('Direction').cast_to.normalized()
 		command.coupled = false
 		command.disconnect('command_activated', self, 'start_action')
 		command.disconnect('command_released', self, 'finish_action')
