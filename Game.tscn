@@ -93,7 +93,7 @@ preffered_command = "KEY_D"
 cast_to = Vector2( 30, -50 )
 
 [node name="UpSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 161.015, 373.789 )
+position = Vector2( 161.015, 368.789 )
 action = "UP"
 preffered_command = "KEY_W"
 
@@ -130,7 +130,7 @@ cast_to = Vector2( -30, -60 )
 position = Vector2( 114.016, 420.823 )
 
 [node name="Command_Key_W" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 161.015, 373.789 )
+position = Vector2( 161.015, 368.789 )
 command_code = "KEY_W"
 
 [node name="Command_Key_S" parent="Commands" instance=ExtResource( 2 )]

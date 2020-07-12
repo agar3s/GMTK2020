@@ -10,6 +10,11 @@ func _ready():
 	connect('area_entered', self, '_on_hit')
 	add_to_group('enemy')
 	add_to_group('collidable')
+	position.y = -16
+	position.x = rand_range(0+16, get_viewport().get_visible_rect().size.x - 16)
+	var direction = 1 if (get_viewport().get_visible_rect().size.x/2 - position.x) > 0 else -1
+	speed.y += randi()%100
+	speed.x += randf()*50*direction
 
 
 func _process(delta):
