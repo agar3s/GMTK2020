@@ -1,6 +1,7 @@
 extends Area2D
 
 signal on_hit
+const explosion_scene = preload("res://Explosion.tscn")
 
 const laser_scene = preload('res://LaserShip.tscn')
 
@@ -10,6 +11,7 @@ var right = false setget set_right
 var down = false setget set_down
 var up = false setget set_up
 
+var hp = 4
 
 var move_x = 0
 var move_y = 0
@@ -70,8 +72,12 @@ func set_up(on):
 		move_y += 1
 	set_speed()
 
-func hit(damage):
-	emit_signal('on_hit')
+func hit(_damage):
+	hp -= 1
+	emit_signal('on_hit', hp)
+	if hp <= 0:
+		create_explosion()
+		queue_free()
 
 
 func set_speed():
@@ -99,4 +105,8 @@ func _process(delta):
 		position.y = get_viewport_rect().size.y - 36
 
 
+func create_explosion():
+	var explosion = explosion_scene.instance()
+	explosion.set_position(global_position)
+	get_tree().root.add_child(explosion)
 

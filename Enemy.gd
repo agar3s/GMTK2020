@@ -22,8 +22,8 @@ func set_armor(value):
 	armor = value
 	if armor <= 0:
 		explode()
-		#var Score = get_tree().root.get_node("World/HUD/Score")
-		#Score.score += 5
+		var Score = get_tree().root.get_node("Game/HUD/Score")
+		Score.score += 5
 		queue_free()
 
 func explode():

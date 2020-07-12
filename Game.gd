@@ -16,6 +16,7 @@ func drag(dragging):
 		if command.drag(dragging): break
 
 func handle_action(action, status):
+	if !has_node('Ship'): return
 	match action:
 		'LEFT': $Ship.left = status
 		'RIGHT': $Ship.right = status
@@ -23,9 +24,8 @@ func handle_action(action, status):
 		'DOWN': $Ship.down = status
 		'FIRE': $Ship.fire = status
 		'DRAG': drag(status)
-		#'DRAG': decouple()
 
-func decouple():
+func decouple(_hp):
 	var array = range(0, $Slots.get_child_count())
 	array.shuffle()
 	for index_slot in array:

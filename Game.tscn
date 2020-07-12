@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Command.tscn" type="PackedScene" id=2]
@@ -6,6 +6,59 @@
 [ext_resource path="res://Ship.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Direction.tscn" type="PackedScene" id=5]
 [ext_resource path="res://EnemySpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Sprites/armor.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/score.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Fonts/m5x7.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Assets/Sprites/button_pressed.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/button_normal.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/button_hover.png" type="Texture" id=12]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+
+
+
+func _on_Ship_on_hit(value):
+	set_frame(value)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends TextureRect
+
+
+var score = 0 setget set_score
+
+func set_score(new_value):
+	score = new_value
+	$Label.text = \"%06d\" % new_value
+"
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends ReferenceRect
+
+
+func _ready():
+	$StartButton.connect('pressed', self, '_on_pressed')
+	var ship = get_tree().root.get_node('Game/Ship')
+	ship.connect('tree_exited', self, '_on_ship_destroyed')
+	
+func _on_pressed():
+	get_tree().change_scene(\"res://Game.tscn\")
+
+func _on_ship_destroyed():
+	visible = true
+"
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -102,3 +155,90 @@ position = Vector2( 160.015, 317.266 )
 [node name="Borders" type="Node2D" parent="."]
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 6 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HP" type="Sprite" parent="HUD"]
+position = Vector2( 45, 27 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 4
+script = SubResource( 1 )
+
+[node name="Score" type="TextureRect" parent="HUD"]
+margin_left = 235.0
+margin_top = 12.0
+margin_right = 282.0
+margin_bottom = 32.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 8 )
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/Score"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -9.33333
+margin_right = -4.0
+margin_bottom = 4.66667
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "000000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="ReferenceRect" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.0
+margin_top = -66.0
+margin_right = 68.0
+margin_bottom = 20.0
+script = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="TextureButton" parent="HUD/GameOver"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.3351
+margin_top = 7.08662
+margin_right = 10.6649
+margin_bottom = 23.0866
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="HUD/GameOver/StartButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.5
+margin_top = -8.0
+margin_right = 22.5
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "START"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="on_hit" from="Ship" to="HUD/HP" method="_on_Ship_on_hit"]
