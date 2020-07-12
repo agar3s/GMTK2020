@@ -82,6 +82,9 @@ func _process(_delta):
 func set_coupled(_coupled):
 	coupled = _coupled
 	if !coupled:
-		speed.x = randf()
-		speed.y = randf()
+		if active:
+			active = false
+			emit_signal('command_released')
+		speed.x = randf() - 0.5
+		speed.y = randf() - 0.5
 		speed = speed.normalized()*150

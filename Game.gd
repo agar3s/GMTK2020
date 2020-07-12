@@ -4,7 +4,7 @@ extends Node2D
 const Slot = preload("res://Slot.gd")
 
 func _ready():
-	
+	randomize()
 	for slot in $Slots.get_children():
 		slot.connect('action_started', self, 'handle_action', [true])
 		slot.connect('action_finished', self, 'handle_action', [false])
