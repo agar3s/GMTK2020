@@ -14,7 +14,7 @@ var up = false setget set_up
 var move_x = 0
 var move_y = 0
 
-export (float) var speed_max = 200
+export (float) var speed_max = 250
 var speed: Vector2 = Vector2(0.0, 0.0)
 
 func _ready():
@@ -70,7 +70,7 @@ func set_up(on):
 		move_y += 1
 	set_speed()
 
-func hit():
+func hit(damage):
 	emit_signal('on_hit')
 
 
@@ -86,17 +86,17 @@ func _process(delta):
 	
 	if position.x < 16:
 		speed.x = 0
-		position.x = 16
+		position.x = 20
 	elif position.x > get_viewport_rect().size.x - 16:
 		speed.x = 0
-		position.x = get_viewport_rect().size.x - 16
+		position.x = get_viewport_rect().size.x - 20
 	
 	if position.y < 100:
 		speed.y = 0
-		position.y = 100
+		position.y = 104
 	elif position.y > get_viewport_rect().size.y - 32:
 		speed.y = 0
-		position.y = get_viewport_rect().size.y - 32
+		position.y = get_viewport_rect().size.y - 36
 
 
 

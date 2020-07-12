@@ -29,12 +29,14 @@ func set_command(_command):
 			command.direction = get_node('Direction').cast_to.normalized()*100
 		command.disconnect('command_activated', self, 'start_action')
 		command.disconnect('command_released', self, 'finish_action')
+		command.disconnect("command_hit", self, 'eject_command')
 		command.coupled = false
 	command = _command
 	if command:
 		command.coupled = true
 		command.connect('command_activated', self, 'start_action')
 		command.connect('command_released', self, 'finish_action')
+		command.connect("command_hit", self, 'eject_command')
 		command.position = position
 		command.coupled_position = position
 

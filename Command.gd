@@ -4,6 +4,8 @@ extends Node2D
 signal command_activated
 signal command_released
 
+signal command_hit
+
 const COMMANDS = {
 	'KEY_A': [KEY_A, 'A', true],
 	'KEY_W': [KEY_W, 'W', true],
@@ -30,7 +32,7 @@ var coupled_position
 
 var direction: Vector2 = Vector2(0.0, 0.0) setget set_direction
 var drag_force = 1.0
-var max_speed = 300
+var max_speed = 200
 var speed: Vector2 = Vector2(0.0, 0.0)
 var target_speed: Vector2 = Vector2(0.0, 0.0)
 var colliding_object = null
@@ -176,11 +178,19 @@ func on_collides_end(area2D):
 
 
 func set_hp(_hp):
+	if hp < 0: return
 	hp = clamp(_hp, 0, 100)
 	$ProgressBar.value = hp
+	if hp == 0:
+		$AnimationPlayer.play('Recover')
+		yield($AnimationPlayer, 'animation_finished')
+		hp = 100
+		if !coupled: $AnimationPlayer.play('decoupled')
+		else: $AnimationPlayer.play('coupled')
 	
-func hit():
-	set_hp(hp - 20)
+func hit(damage):
+	set_hp(hp - damage)
+	emit_signal('command_hit')
 
 func recover(value):
 	set_hp(hp + value)

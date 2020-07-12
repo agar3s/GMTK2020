@@ -1,7 +1,8 @@
 extends Area2D
 
 export var speed = Vector2(0, 100)
-export var armor = 2 setget set_armor
+export var armor = 1 setget set_armor
+export var damage = 25
 
 const explosion_scene = preload('res://Explosion.tscn')
 
@@ -33,6 +34,6 @@ func explode():
 
 func _on_hit(other):
 	if other.is_in_group('ship') or other.is_in_group('command'):
-		other.hit()
+		other.hit(damage)
 		explode()
 		queue_free()

@@ -10,27 +10,29 @@
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_vertical_guides_": [ 140.056 ]
+"_edit_vertical_guides_": [ 160.015 ]
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 279.0
-margin_bottom = 472.0
+margin_right = 323.0
+margin_bottom = 477.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Slots" type="Node2D" parent="."]
 
 [node name="LeftSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 93.0565, 430.823 )
+position = Vector2( 114.016, 420.823 )
 
 [node name="Direction" parent="Slots/LeftSlot" instance=ExtResource( 5 )]
 cast_to = Vector2( -15, -50 )
 
 [node name="RightSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 187.056, 430.823 )
+position = Vector2( 208.015, 420.823 )
 action = "RIGHT"
 preffered_command = "KEY_D"
 
@@ -38,7 +40,7 @@ preffered_command = "KEY_D"
 cast_to = Vector2( 30, -50 )
 
 [node name="UpSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 140.056, 383.789 )
+position = Vector2( 161.015, 373.789 )
 action = "UP"
 preffered_command = "KEY_W"
 
@@ -46,15 +48,15 @@ preffered_command = "KEY_W"
 cast_to = Vector2( 0, -50 )
 
 [node name="DownSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 140.056, 430.823 )
+position = Vector2( 161.015, 420.823 )
 action = "DOWN"
 preffered_command = "KEY_D"
 
 [node name="Direction" parent="Slots/DownSlot" instance=ExtResource( 5 )]
-cast_to = Vector2( 30, 50 )
+cast_to = Vector2( 60, -100 )
 
 [node name="FireSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 27.4615, 436.266 )
+position = Vector2( 35.7022, 399.789 )
 action = "FIRE"
 preffered_command = "BUTTON_LEFT"
 
@@ -62,7 +64,7 @@ preffered_command = "BUTTON_LEFT"
 cast_to = Vector2( 20, -60 )
 
 [node name="DragSlot" parent="Slots" instance=ExtResource( 1 )]
-position = Vector2( 252.026, 437.266 )
+position = Vector2( 290.982, 399.789 )
 action = "DRAG"
 preffered_command = "BUTTON_RIGHT"
 
@@ -72,30 +74,30 @@ cast_to = Vector2( -30, -60 )
 [node name="Commands" type="Node2D" parent="."]
 
 [node name="Command_Key_A" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 93.0565, 430.823 )
+position = Vector2( 114.016, 420.823 )
 
 [node name="Command_Key_W" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 140.056, 383.789 )
+position = Vector2( 161.015, 373.789 )
 command_code = "KEY_W"
 
 [node name="Command_Key_S" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 140.056, 430.823 )
+position = Vector2( 161.015, 420.823 )
 command_code = "KEY_S"
 
 [node name="Command_Key_D" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 187.056, 430.823 )
+position = Vector2( 208.015, 420.823 )
 command_code = "KEY_D"
 
 [node name="Command_Click_Left" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 27.4615, 436.266 )
+position = Vector2( 35.7022, 399.789 )
 command_code = "BUTTON_LEFT"
 
 [node name="Command_Click_Right" parent="Commands" instance=ExtResource( 2 )]
-position = Vector2( 252.026, 437.266 )
+position = Vector2( 290.982, 399.789 )
 command_code = "BUTTON_RIGHT"
 
 [node name="Ship" parent="." instance=ExtResource( 4 )]
-position = Vector2( 140.056, 334.266 )
+position = Vector2( 160.015, 317.266 )
 
 [node name="Borders" type="Node2D" parent="."]
 
